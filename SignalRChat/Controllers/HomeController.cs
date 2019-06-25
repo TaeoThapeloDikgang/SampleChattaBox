@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SignalRChat.DataAccess;
 
 namespace SignalRChat.Controllers
 {
-    public class LoginCredentials
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-    }
-
     public class HomeController : Controller
     {
+        public HomeController(IChatSystemStore store)
+        {
+            Store = store;
+        }
+
+        public IChatSystemStore Store { get; }
+
         public IActionResult Index()
         {
             return View();
@@ -22,9 +24,9 @@ namespace SignalRChat.Controllers
         [HttpPost]
         public IActionResult Login(LoginCredentials credentials)
         {
-            if (false)
+            if (Store.ValidateUser(new StoreLoginCredentials { Username = credentials.Username, Password = credentials.Password }))
             {
-                RedirectToAction("Index", "Chat");
+                return RedirectToAction("Index", "Chat");
             }
             else
             {
