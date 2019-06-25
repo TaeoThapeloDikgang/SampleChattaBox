@@ -50,10 +50,11 @@ namespace SignalRChat
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            /*app.UseCookiePolicy();
             app.UseCors("CorsPolicy");
+            */
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chathub");
