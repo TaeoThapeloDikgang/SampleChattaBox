@@ -1,8 +1,11 @@
 ﻿using LiteDB;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SignalRChat.DataAccess
 {
@@ -29,7 +32,7 @@ namespace SignalRChat.DataAccess
            var user1 = new User
             {
                 Name = "Shareen",
-                Password = "1234"
+                Password = GetHash("1234")
             };
             users.Insert(user1);
 
@@ -67,27 +70,31 @@ namespace SignalRChat.DataAccess
             {
                 Name = "Sports"
             };
+            channel.Insert(channel1);
 
             var channel2 = new Channel
             {
                 Name = "Anime"
             };
+            channel.Insert(channel2);
 
             var channel3 = new Channel
             {
                 Name = "Politics"
             };
+            channel.Insert(channel3);
 
             var channel4 = new Channel
             {
                 Name = "Music"
             };
+            channel.Insert(channel4);
 
             var channel5 = new Channel
             {
                 Name = "Fitness"
             };
-
+            channel.Insert(channel5);
 
         }
 
@@ -95,12 +102,24 @@ namespace SignalRChat.DataAccess
         {
             var users = _database.GetCollection<User>("users");
             var channel = _database.GetCollection<User>("channels");
-        
-            IEnumerable<User> results = users.Find(x => x.Name == loginCredentials.Username && x.Password == loginCredentials.Password);
+
+            IEnumerable<User> results = users.Find(x => x.Name == loginCredentials.Username && GetHash(x.Password) == loginCredentials.Password);
             return results.Any();
         }
 
         private LiteDatabase _database;
         private User user;
+           
+        public static string GetHash(string text)
+        {
+            // SHA512 is disposable by inheritance.  
+            using (var sha256 = SHA256.Create())
+            {
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(text));
+                // Get the hashed string.  
+                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+            }
+        }
     }
+
 }
