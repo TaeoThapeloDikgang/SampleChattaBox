@@ -1,8 +1,14 @@
 ﻿
 @{
-< a href = "~/Views/Chat/Index.cshtml" > ~/ Views / Chat / Index.cshtml </ a >
-     ViewData["Title"] = "Index";
+    < a href = "~/Views/Chat/Index.cshtml" > ~/ Views / Chat / Index.cshtml </ a >
+    ViewData["Title"] = "Index";
 }
 
 <h2>Index</h2>
+
+Welcome
+<%
+response.write(request.querystring("fname"))
+response.write(" " & request.querystring("lname"))
+%>
 
