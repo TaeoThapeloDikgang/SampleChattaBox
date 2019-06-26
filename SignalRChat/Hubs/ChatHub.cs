@@ -41,9 +41,12 @@ namespace SignalRChat.Hubs
             await base.OnConnectedAsync();
         }
 
-        public override async Task OnDisconnectedAsync(Exception ex)
+        public override async Task OnDisconnectedAsync(Exception ex) //username
         {
             // TODO: remove from groups and notify group members
+            //Context
+            //await Groups.RemoveFromGroupAsync(Context.ConnectionId);
+            //await Clients.Groups(channelName).LeftChannel(username);
             await base.OnDisconnectedAsync(ex);
         }
  
