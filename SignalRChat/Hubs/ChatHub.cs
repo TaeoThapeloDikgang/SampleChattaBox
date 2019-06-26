@@ -1,15 +1,51 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
 namespace SignalRChat.Hubs
 {
-    public class ChatHub : Hub
+
+    public interface IChatClient
     {
-        #region snippet_SendMessage
-        public async Task SendMessage(string user, string message)
+        Task ReceivedMessage(string username, string message);
+        Task JoinedChannel(string username);
+     
+        Task LeftChannel(string username);
+    }
+
+    public class ChatHub : Hub<IChatClient>
+    {
+        public async Task JoinChannel(string channelName, string username)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user,message);
+            await Groups.AddToGroupAsync(Context.ConnectionId, username);
+            await Clients.Groups(channelName).JoinedChannel(username);
+
+           
         }
-        #endregion
+
+        public async Task GetChannels()
+        {
+            throw new NotImplementedException();
+            //return new List();
+        }
+
+        
+
+        public Task SendMessageToChannel(string channelName, string username, string messsage)
+        {
+            return Clients.Group(channelName).ReceivedMessage(username,  messsage);
+        }
+        
+        public override async Task OnConnectedAsync()
+        {
+            await base.OnConnectedAsync();
+        }
+
+        public override async Task OnDisconnectedAsync(Exception ex)
+        {
+            // TODO: remove from groups and notify group members
+            await base.OnDisconnectedAsync(ex);
+        }
+ 
     }
 }
