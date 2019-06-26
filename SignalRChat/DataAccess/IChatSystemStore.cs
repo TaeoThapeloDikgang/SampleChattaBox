@@ -25,7 +25,7 @@ namespace SignalRChat.DataAccess
         private void InitializeDatabase()
         {
             var users = _database.GetCollection<User>("users");
-            // var channel = _database.GetCollection<Channel>("channels");
+            var channel = _database.GetCollection<Channel>("channels");
 
             var user1 = new User
             {
@@ -38,9 +38,10 @@ namespace SignalRChat.DataAccess
         public bool ValidateUser(StoreLoginCredentials loginCredentials)
         {
             throw new NotImplementedException();
-         
+            //var results = users.find(x => x.Name = loginCredentials.Username);
         }
         private LiteDatabase _database;
+        private object users;
     }
 
     public class StoreLoginCredentials
