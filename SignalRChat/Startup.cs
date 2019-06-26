@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SignalRChat.DataAccess;
 using SignalRChat.Hubs;
 
 namespace SignalRChat
@@ -36,6 +37,8 @@ namespace SignalRChat
             //    }));
 
             services.AddSignalR();
+
+            services.AddSingleton<IChatSystemStore>(new ChatSystemStore());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
