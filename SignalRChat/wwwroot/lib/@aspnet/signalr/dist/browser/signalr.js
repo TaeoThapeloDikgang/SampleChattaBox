@@ -1992,7 +1992,7 @@ var HubConnection = /** @class */ (function () {
      * @typeparam T The type of the items returned by the server.
      * @param {string} methodName The name of the server method to invoke.
      * @param {any[]} args The arguments used to invoke the server method.
-     * @returns {IStreamResult<T>} An object that yields results from the server as they are received.
+     * @returns{IStreamResult<T>} An object that yields results from the server as they are received.
      */
     HubConnection.prototype.stream = function (methodName) {
         var _this = this;
