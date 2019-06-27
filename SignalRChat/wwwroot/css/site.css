@@ -1,6 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    padding-top: 50px;
+    padding-top: 70px;
     padding-bottom: 20px;
 }
 
@@ -8,6 +8,7 @@ body {
     padding-left: 15px;
     padding-right: 15px;
     align-content: center;
+    height: 100%;
 }
 
 /* Full-width input fields */
@@ -96,14 +97,11 @@ span.psw {
     font-weight: bold;
 }
 
-    .close:hover,
-    .close:focus {
-        color: red;
-        cursor: pointer;
-    }
-
-
-
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
 
 /* our stuff*/
 
@@ -123,45 +121,6 @@ span.psw {
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-
-  
-
-    .form button {
-        font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
-        outline: 0;
-        background: #4CAF50;
-        width: 100%;
-        border: 0;
-        padding: 15px;
-        color: #FFFFFF;
-        font-size: 14px;
-        -webkit-transition: all 0.3 ease;
-        transition: all 0.3 ease;
-        cursor: pointer;
-    }
-
-        .form button:hover, .form button:active, .form button:focus {
-            background: #43A047;
-        }
-
-    .form .message {
-        margin: 15px 0 0;
-        color: #b3b3b3;
-        font-size: 12px;
-    }
-
-        .form .message a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-
-    .form .register-form {
-        display: none;
-    }
-
-
-/* End*/
 
 
 
@@ -203,6 +162,127 @@ span.psw {
     }
 }
 
-<img src=" https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwj_2qGMu4bjAhVBt3EKHXT4AxAQjRx6BAgBEAU&url=https%3A%2F%2Fmedium.com%2F%40siftechBlog%2Fstartup-spotlight-chatterbox-4dabfdae2c11&psig=AOvVaw2t5aWXiqGd5lWIoHDfCq5X&ust=1561614929101250" >
+* {
+    box-sizing: border-box;
 }
+
+/* Add styles to the form container */
+.form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 0 0;
+    border: none;
+    background: #f1f1f1;
+    resize: none;
+    min-height: 50px;
+}
+
+    /* When the textarea gets focus, do something */
+    .form-container textarea:focus {
+        background-color: #ddd;
+        outline: none;
+    }
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 12px;
+    opacity: 0.9;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+    background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+}
+
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+    background-color: #ddd;
+}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#channels {
+    vertical-align: top;
+    text-align: left;
+    width: 200px;
+}
+
+.channel {
+    background-color: lightgray;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 4px;
+}
+
+.channel-name {
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.channel-description {
+
+}
+
+#chat-form {
+    max-width: unset;
+}
+
+#messages {
+    height: 500px;
+}
+
+.message {
+
+}
+
+.message-username {
+
+}
+
+.message-text {
+
+}
+
+#channel-users {
+    vertical-align: top;
+    text-align: left;
 }

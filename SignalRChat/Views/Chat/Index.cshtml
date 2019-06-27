@@ -1,9 +1,67 @@
 ﻿
 @{
-    < a href = "~/Views/Chat/Index.cshtml" > ~/ Views / Chat / Index.cshtml </ a >
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Chat";
 }
 
-<!--
-<h2>Index</h2>
- -->
+@*<meta name="viewport" content="width=device-width, initial-scale=1">*@
+
+<table id="customers">
+    <thead align="center">
+        <tr>
+            <th align="center">Active Users</th>
+            <th align="center">Chats</th>
+            <th align="center">Channels</th>
+
+        </tr>
+    </thead>
+    <tr>
+        <td align="center" id="channel-users">
+            <div class="channel-user">
+                <div class="channel-username">Bob</div>
+            </div>
+            <div class="channel-user">
+                <div class="channel-username">Sue</div>
+            </div>
+        </td>
+
+        <td align="center">
+            <div class="chat-popup" id="myForm">
+                <form action="/action_page.php" id="chat-form" class="form-container">
+                    <h1 id="chat-channel-name">Sports</h1>
+                    <div id="messages">
+                        <div class="message">
+                            <div class="message-username">Bob</div>
+                            <div class="message-text">What's up?</div>
+                        </div>
+                    </div>
+                    
+                    <textarea placeholder="Type message..." id="messageText" required></textarea>
+
+                    <button type="button" class="btn" id="sendMessageButton">Send</button>
+
+                </form>
+            </div>
+        </td>
+        <td align="center" id="channels">
+            <div class="channel">
+                <div class="channel-name"><a href="#">Sports</a></div>
+                <div class="channel-description">Your channel for all things sport!</div>
+            </div>
+            <div class="channel">
+                <div class="channel-name"><a href="#">ABC</a></div>
+                <div class="channel-description">Your channel for all things sport!</div>
+            </div>
+        </td>
+    </tr>
+
+</table>
+
+
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+
+
+
+</script>
+

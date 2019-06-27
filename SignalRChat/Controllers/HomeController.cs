@@ -9,12 +9,12 @@ namespace SignalRChat.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IChatSystemStore _store;
+
         public HomeController(IChatSystemStore store)
         {
-            Store = store;
+            _store = store;
         }
-
-        public IChatSystemStore Store { get; }
 
         public IActionResult Index()
         {
@@ -24,7 +24,7 @@ namespace SignalRChat.Controllers
         [HttpPost]
         public IActionResult Login(LoginCredentials credentials)
         {
-            if (Store.ValidateUser(new StoreLoginCredentials { Username = credentials.Username, Password = credentials.Password }))
+            if (_store.ValidateUser(new StoreLoginCredentials { Username = credentials.Username, Password = credentials.Password }))
             {
                 return RedirectToAction("Index", "Chat");
             }

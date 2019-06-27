@@ -40,12 +40,6 @@ connection.on("ReceivedMessage", (user, message) => {
     document.getElementById("messagesList").appendChild(li);
 });
 
-/*
-document.getElementById("sendButton").addEventListener("click", event => {
-    connection.invoke("SendMessage", user, message).catch(err => console.error(err.toString()));
-    event.preventDefault();
-});*/
-
 
 document.getElementById("sendButton").addEventListener("click", event => {
     connection.invoke("SendMessageToChannel", user, message).catch(err => console.error(err.toString()));
