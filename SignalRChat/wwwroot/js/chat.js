@@ -1,4 +1,4 @@
-﻿import { connect } from "tls";
+﻿//import { connect } from "tls";
 
     // The following sample code uses modern ECMAScript 6 features 
 // that aren't supported in Internet Explorer 11.
@@ -30,35 +30,84 @@ connection.on("UserDisconnected", function (connectionId) {
         }
     }
 });*/
-var user = document.getElementById("userInput").value;
-var message = document.getElementById("messageInput").value;
 
-connection.on("ReceivedMessage", (user, message) => {
-    const encodedMsg = user + " says " + message;
-    const li = document.createElement("li");
-    li.textContent = encodedMsg;
-    document.getElementById("messagesList").appendChild(li);
+connection.on("receivedMessage", function (username, message) {
+    console.log("Received message! " + message);
+    const encodedMsg = username + " says " + message;
+    const messageDiv = document.createElement("div");
+    messageDiv.textContent = encodedMsg;
+    document.getElementById("messages").appendChild(messageDiv);
 });
 
 
-document.getElementById("sendButton").addEventListener("click", event => {
-    connection.invoke("SendMessageToChannel", user, message).catch(err => console.error(err.toString()));
-    event.preventDefault();
-});
+//document.getElementById("sendMessageButton").addEventListener("click", event => {
+//    connection.invoke("SendMessageToChannel", user, message).catch(err => console.error(err.toString()));
+//    event.preventDefault();
+//});
 
-document.getElementById("joinChannel").addEventListener("click", event => {
-    connection.invoke("JoinChannel", groupValue).catch(err => console.error(err.toString()));
-    event.preventDefault();
-});
+//document.getElementById("joinChannel").addEventListener("click", event => {
+//    connection.invoke("JoinChannel", groupValue).catch(err => console.error(err.toString()));
+//    event.preventDefault();
+//});
 
-document.getElementById("leftChannel").addEventListener("click", event => {
-    connection.invoke("LeftChannel", groupValue).catch(err => console.error(err.toString()));
-    event.preventDefault();
-});
+//document.getElementById("leftChannel").addEventListener("click", event => {
+//    connection.invoke("LeftChannel", groupValue).catch(err => console.error(err.toString()));
+//    event.preventDefault();
+//});
 
-document.getElementById("getChannel").addEventListener("click", event => {
-    connection.invoke("GetChannel", groupValue).catch(err => console.error(err.toString()));
-    event.preventDefault();
-});
+//document.getElementById("getChannel").addEventListener("click", event => {
+//    connection.invoke("GetChannel", groupValue).catch(err => console.error(err.toString()));
+//    event.preventDefault();
+//});
 
-connection.start().catch(err => console.error(err.toString()));
+connection.start()
+    .then(function () {
+        console.log('connection started');
+
+        var messageInput = document.getElementById("messageText");
+        messageInput.focus();
+
+        document.getElementById('sendMessageButton').addEventListener('click', function (event) {
+            var message = messageInput.value;
+            // Call the Send method on the hub.
+            connection.invoke("SendMessageToChannel", message).catch(err => console.error(err.toString()));
+            // Clear text box and reset focus for next comment.
+            messageInput.value = '';
+            messageInput.focus();
+            event.preventDefault();
+        });
+
+        //connection.invoke("SendMessageToChannel", user, message).catch(err => console.error(err.toString()));
+
+        connection.invoke("GetChannels")
+            .then(function (channels) {
+                var channelsElement = document.getElementById("channels");
+
+                for (var i = 0; i < channels.length; i++) {
+                    const channelDiv = document.createElement("div");
+                    channelDiv.attributes["class"] = "channel";
+
+                    const channelNameDiv = document.createElement("div");
+                    channelNameDiv.attributes["class"] = "channel-name";
+                    const channelNameLink = document.createElement("a");
+                    channelNameLink.attributes["href"] = "#";
+                    let channelName = channels[i].name;
+                    channelNameLink.innerText = channelName;
+                    channelNameLink.addEventListener('click', function (event) {
+                        connection.invoke("JoinChannel", channelName, myUsername)
+                            .catch(err => console.error(err.toString()));
+                        event.preventDefault();
+                    });
+                    channelNameDiv.appendChild(channelNameLink);
+                    channelDiv.appendChild(channelNameDiv);
+
+                    const channelDescriptionDiv = document.createElement("div");
+                    channelDescriptionDiv.attributes["class"] = "channel-description";
+                    channelDiv.appendChild(channelDescriptionDiv);
+
+                    channelsElement.appendChild(channelDiv);
+                }
+            })
+            .catch(err => console.error(err.toString()));
+    })
+    .catch(err => console.error(err.toString()));
