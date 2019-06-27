@@ -2,34 +2,36 @@
     ViewData["Title"] = "Home Page";
 }
 
-
-<div style="align-items:center">
-    <br><br>
-    <h1><center> Welcome to ChattaBox </center></h1>
-</div>
-
-<br><br>
 <div>
-    <div class="login-page">
-        <div class="form">
-            <h2>Login</h2>
-            <br>
-            <form class="login-form" action="@Url.Action("Login", "Home")" method="post">
 
-                <label for="male">Username</label>
-                <input id="username" name="username" type="text" placeholder="username" />
+    <div style="align-items:center">
+        <br><br>
+        <h1><center> Welcome to ChattaBox </center></h1>
+    </div>
 
-                <label for="male">Password</label>
-                <input id="password" name="password" type="password" placeholder="password" />
-                <button id="loginBtn">login</button>
+    <br><br>
+    <div>
+        <div class="login-page">
+            <div class="form">
+                <h2>Login</h2>
+                <br>
+                <form class="login-form" action="@Url.Action("Login", "Home")" method="post">
 
-            </form>
+                    <label for="male">Username</label>
+                    <input id="username" name="username" type="text" placeholder="username" />
+
+                    <label for="male">Password</label>
+                    <input id="password" name="password" type="password" placeholder="password" />
+                    <button id="loginBtn">Login</button>
+
+                </form>
 
             </div>
         </div>
-        
+
 
     </div>
+</div>
 
 
 

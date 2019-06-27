@@ -2,6 +2,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     padding-top: 70px;
     padding-bottom: 20px;
+    background-color:darkseagreen
 }
 
 .body-content {
@@ -51,7 +52,8 @@ button:hover {
 }
 
 img.avatar {
-    width: 40%;
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
 }
 
@@ -202,6 +204,19 @@ span.psw {
     opacity: 0.9;
 }
 
+#loginBtn {
+    background-color: #4CAF50;
+    color: black;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 12px;
+    opacity: 0.9;
+    font-weight: bold;
+}
+
+
 /* Add a red background color to the cancel button */
 .form-container .cancel {
     background-color: red;
@@ -217,6 +232,7 @@ span.psw {
     border-collapse: collapse;
     width: 100%;
     border: 1px solid black;
+    height: 70%;
 }
 
 #customers td, #customers th {
@@ -235,9 +251,9 @@ span.psw {
 #customers th {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
+    text-align: center;
     background-color: #4CAF50;
-    color: white;
+    color: black;
 }
 
 #channels {
@@ -264,6 +280,7 @@ span.psw {
 
 #chat-form {
     max-width: unset;
+    max-height: 50%;
 }
 
 #messages {
@@ -285,4 +302,16 @@ span.psw {
 #channel-users {
     vertical-align: top;
     text-align: left;
+}
+
+.channel-user {
+    background-color: lightgray;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 4px;
+}
+
+#sendMessageButton{
+    color:black;
+    font-weight: bold;
 }
