@@ -9,20 +9,21 @@
 </div>
 
 <br><br>
-    <div>
-        <div class="login-page">
-            <div class="form">
-                <h2>Login</h2>
-                <br>
-                <form class="login-form" action='@Url.Action("index", "chat")'>
+<div>
+    <div class="login-page">
+        <div class="form">
+            <h2>Login</h2>
+            <br>
+            <form class="login-form" action="@Url.Action("Login", "Home")" method="post">
 
-                    <label for="male">Username</label>
-                    <input type="text" placeholder="username" />
+                <label for="male">Username</label>
+                <input id="username" name="username" type="text" placeholder="username" />
 
-                    <label for="male">Password</label>
-                    <input type="password" placeholder="password" />
-                    <button>Login</button>
-                </form>
+                <label for="male">Password</label>
+                <input id="password" name="password" type="password" placeholder="password" />
+                <button id="loginBtn">login</button>
+
+            </form>
 
             </div>
         </div>
