@@ -13,6 +13,7 @@ namespace SignalRChat.DataAccess
     {
         public ChatSystemStore()
         {
+            
             const string fileName = "ChatSystem.db";
             bool dbExist = File.Exists(fileName);
             _database = new LiteDatabase(fileName);
@@ -33,31 +34,36 @@ namespace SignalRChat.DataAccess
             var channel = _database.GetCollection<Channel>("channels");
             var channel1 = new Channel
             {
-                Name = "Sports"
+                Name = "Sports",
+                Description = "Discussions about live sports shows and events"
             };
             channel.Insert(channel1);
-
+            
             var channel2 = new Channel
             {
-                Name = "Anime"
+                Name = "Anime",
+                Description = "Talks about different anime for adults"
             };
             channel.Insert(channel2);
 
             var channel3 = new Channel
             {
-                Name = "Politics"
+                Name = "Politics",
+                Description = "Talks about global politics and different economies"
             };
             channel.Insert(channel3);
 
             var channel4 = new Channel
             {
-                Name = "Music"
+                Name = "Music",
+                Description = "New music trends and albums"
             };
             channel.Insert(channel4);
 
             var channel5 = new Channel
             {
-                Name = "Fitness"
+                Name = "Fitness",
+                Description = "Different ways of maintaining a healthy lifestyle"
             };
             channel.Insert(channel5);
         }
@@ -101,13 +107,15 @@ namespace SignalRChat.DataAccess
             };
             users.Insert(user5);
         }
+        
+        
 
         public bool ValidateUser(StoreLoginCredentials loginCredentials)
         {
             LiteCollection<User> users = _database.GetCollection<User>("users");
             LiteCollection<User> channel = _database.GetCollection<User>("channels");
-            string passwordHash = GetHash(loginCredentials.Password);
 
+            string passwordHash = GetHash(loginCredentials.Password);
             IEnumerable<User> results = users.Find(x => x.Name == loginCredentials.Username && x.Password == passwordHash);
             return results.Any();
         }
@@ -126,6 +134,11 @@ namespace SignalRChat.DataAccess
                     
             }
         }
-    }
 
+        public List<Channel> GetChannels()
+        {
+            var channels = _database.GetCollection<Channel>("channels");
+            return channels.FindAll().ToList();
+        }
+    }
 }
