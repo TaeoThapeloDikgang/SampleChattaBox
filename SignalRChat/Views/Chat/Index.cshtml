@@ -5,6 +5,8 @@
 
 @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
 
+<h1>@ViewBag.Username</h1>
+
 <table id="customers">
     <thead align="center">
         <tr>
@@ -26,42 +28,41 @@
 
         <td align="center">
             <div class="chat-popup" id="myForm">
-                <form action="/action_page.php" id="chat-form" class="form-container">
+                <div id="chat-form" class="form-container">
                     <h1 id="chat-channel-name">Sports</h1>
                     <div id="messages">
-                        <div class="message">
+                        @*<div class="message">
                             <div class="message-username">Bob</div>
                             <div class="message-text">What's up?</div>
-                        </div>
+                        </div>*@
                     </div>
                     
                     <textarea placeholder="Type message..." id="messageText" required></textarea>
 
                     <button type="button" class="btn" id="sendMessageButton">Send</button>
 
-                </form>
+                </div>
             </div>
         </td>
         <td align="center" id="channels">
-            <div class="channel">
+            @*<div class="channel">
                 <div class="channel-name"><a href="#">Sports</a></div>
                 <div class="channel-description">Your channel for all things sport!</div>
             </div>
             <div class="channel">
                 <div class="channel-name"><a href="#">ABC</a></div>
                 <div class="channel-description">Your channel for all things sport!</div>
-            </div>
+            </div>*@
         </td>
     </tr>
 
 </table>
 
-
+@section Scripts {
 <script>
-    function openForm() {
-        document.getElementById("myForm").style.display = "block";
-
-
-
+    const myUsername = "@ViewBag.Username";
 </script>
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/js/chat.js"></script>
+}
 

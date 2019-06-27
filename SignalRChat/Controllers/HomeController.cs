@@ -26,7 +26,7 @@ namespace SignalRChat.Controllers
         {
             if (_store.ValidateUser(new StoreLoginCredentials { Username = credentials.Username, Password = credentials.Password }))
             {
-                return RedirectToAction("Index", "Chat");
+                return RedirectToAction("Index", "Chat", new { credentials.Username });
             }
             else
             {
