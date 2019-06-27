@@ -57,7 +57,7 @@ namespace SignalRChat
             //app.UseHttpsRedirection();
 
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            //app.UseCookiePolicy();
 
             //app.UseCors("CorsPolicy");
             app.UseSignalR(routes =>
