@@ -24,48 +24,13 @@ namespace SignalRChat.DataAccess
 
         private void InitializeDatabase()
         {
-            var users = _database.GetCollection<User>("users");
+            InitializeUsers();
+            InitializeChannels();
+        }
+
+        private void InitializeChannels()
+        {
             var channel = _database.GetCollection<Channel>("channels");
-
-            //Database for all users
-
-           var user1 = new User
-            {
-                Name = "Shareen",
-                Password = GetHash("1234")
-            };
-            users.Insert(user1);
-
-            var user2 = new User
-            {
-                Name = "Thapelo",
-                Password = "1235"
-            };
-            users.Insert(user2);
-
-            var user3 = new User
-            {
-                Name = "Nkosi",
-                Password = "1236"
-            };
-            users.Insert(user3);
-
-            var user4 = new User
-            {
-                Name = "Khals",
-                Password = "1237"
-            };
-            users.Insert(user4);
-
-            var user5 = new User
-            {
-                Name = "Sydney",
-                Password = "1238"
-            };
-            users.Insert(user5);
-
-            //Database for all channels 
-
             var channel1 = new Channel
             {
                 Name = "Sports"
@@ -95,15 +60,55 @@ namespace SignalRChat.DataAccess
                 Name = "Fitness"
             };
             channel.Insert(channel5);
+        }
 
+        private void InitializeUsers()
+        {
+            var users = _database.GetCollection<User>("users");
+            var user1 = new User
+            {
+                Name = "Shareen",
+                Password = GetHash("1234"),
+
+            };
+            users.Insert(user1);
+
+            var user2 = new User
+            {
+                Name = "Thapelo",
+                Password = GetHash("1235"),
+            };
+            users.Insert(user2);
+
+            var user3 = new User
+            {
+                Name = "Nkosi",
+                Password = GetHash("1236"),
+            };
+            users.Insert(user3);
+
+            var user4 = new User
+            {
+                Name = "Khals",
+                Password = GetHash("1237"),
+            };
+            users.Insert(user4);
+
+            var user5 = new User
+            {
+                Name = "Sydney",
+                Password = GetHash("1238"),
+            };
+            users.Insert(user5);
         }
 
         public bool ValidateUser(StoreLoginCredentials loginCredentials)
         {
-            var users = _database.GetCollection<User>("users");
-            var channel = _database.GetCollection<User>("channels");
+            LiteCollection<User> users = _database.GetCollection<User>("users");
+            LiteCollection<User> channel = _database.GetCollection<User>("channels");
+            string passwordHash = GetHash(loginCredentials.Password);
 
-            IEnumerable<User> results = users.Find(x => x.Name == loginCredentials.Username && GetHash(x.Password) == loginCredentials.Password);
+            IEnumerable<User> results = users.Find(x => x.Name == loginCredentials.Username && x.Password == passwordHash);
             return results.Any();
         }
 
@@ -112,12 +117,13 @@ namespace SignalRChat.DataAccess
            
         public static string GetHash(string text)
         {
-            // SHA512 is disposable by inheritance.  
+            string salt = "Chatta";
             using (var sha256 = SHA256.Create())
             {
-                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(text));
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(text + salt));
                 // Get the hashed string.  
                 return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+                    
             }
         }
     }

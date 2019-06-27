@@ -14,14 +14,14 @@
         <div class="form">
             <h2>Login</h2>
             <br>
-            <form class="login-form" action="@Url.Action("index", "chat")">
+            <form class="login-form" action="@Url.Action("Login", "Home")" method="post">
 
                 <label for="male">Username</label>
-                <input type="text" placeholder="username" />
+                <input id="username" name="username" type="text" placeholder="username" />
 
                 <label for="male">Password</label>
-                <input type="password" placeholder="password" />
-                <button>login</button>
+                <input id="password" name="password" type="password" placeholder="password" />
+                <button id="loginBtn">login</button>
 
             </form>
 
