@@ -1,4 +1,6 @@
-﻿//import { connect } from "tls";
+﻿//import { create } from "domain";
+
+//import { connect } from "tls";
 
     // The following sample code uses modern ECMAScript 6 features 
 // that aren't supported in Internet Explorer 11.
@@ -92,17 +94,40 @@ connection.start()
                     const channelNameLink = document.createElement("a");
                     channelNameLink.attributes["href"] = "#";
                     let channelName = channels[i].name;
+                    let channelDescription = channels[i].description;
+                    let channelId = channels[i].id; 
                     channelNameLink.innerText = channelName;
                     channelNameLink.addEventListener('click', function (event) {
                         connection.invoke("JoinChannel", channelName, myUsername)
                             .catch(err => console.error(err.toString()));
                         event.preventDefault();
+                        var joinChannelElementHeader = document.getElementById("chat-channel-name");
+                        joinChannelElementHeader.innerText = channelName;
+
+                        var channelUsersElements = document.getElementById("channel-users");
+
+                        connection.invoke("GetUsers", channelId)
+                            .then(function (users) {
+
+                                for (var i = 0; i < users.length; i++) {
+                                    const userChannelDiv = document.createElements("div");
+                                    userChannelDiv.attributes["class"] = "channel-user";
+                                    const channelUsernameDiv = document.createElement("div");
+                                    channelUserDiv.attributes["class"] = "channel-username";
+                                    channelUserDiv.innerText = users[i].name;
+
+                                    userChannelDiv.appendChild(channelUserDiv)
+                                    channelUserElements.appendChild(userChannelDiv)
+                                }
+                            });
+
                     });
                     channelNameDiv.appendChild(channelNameLink);
                     channelDiv.appendChild(channelNameDiv);
 
                     const channelDescriptionDiv = document.createElement("div");
                     channelDescriptionDiv.attributes["class"] = "channel-description";
+                    channelDescriptionDiv.innerText = channelDescription;
                     channelDiv.appendChild(channelDescriptionDiv);
 
                     channelsElement.appendChild(channelDiv);
@@ -111,3 +136,6 @@ connection.start()
             .catch(err => console.error(err.toString()));
     })
     .catch(err => console.error(err.toString()));
+/*
+
+*/

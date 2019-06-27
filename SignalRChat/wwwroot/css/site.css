@@ -21,6 +21,10 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
+
+a:link {
+    cursor: pointer;
+}
 /* Set a style for all buttons *
 button {
   background-color: #4CAF50;
