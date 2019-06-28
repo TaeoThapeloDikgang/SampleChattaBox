@@ -3,10 +3,38 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>Login</h2>
 
 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
 {
-    <div class="alert-danger">@ViewBag.ErrorMessage</div>
+<div>
+
+    <div style="align-items:center">
+        <br><br>
+        <h1><center> Welcome to ChattaBox </center></h1>
+    </div>
+
+    <br><br>
+    <div>
+        <div class="login-page">
+            <div class="form">
+                <p id="incorrectCredentials">Incorrect credentials. Try again.</p>
+                <br>
+                <form class="login-form" action="@Url.Action("Login", "Home")" method="post">
+
+                    <label for="male">Username</label>
+                    <input id="username" name="username" type="text" placeholder="username" />
+
+                    <label for="male">Password</label>
+                    <input id="password" name="password" type="password" placeholder="password" />
+                    <button id="loginBtn">Login</button>
+
+                </form>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
 }
 
