@@ -2,7 +2,9 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     padding-top: 60px;
     //padding-bottom: 20px;
-    background-color: darkseagreen
+    background-color: darkseagreen; 
+    height:100%;
+    width: 100%
 }
 
 .body-content {
@@ -17,6 +19,8 @@ html {
     bottom: 0;
     left: 0;
     right: 0;
+    height:100%;
+    width:100%
 }
 
 /* Full-width input fields */
@@ -68,9 +72,7 @@ img.avatar {
     border-radius: 50%;
 }
 
-.container {
-    padding: 16px;
-}
+
 
 span.psw {
     float: right;
@@ -247,16 +249,23 @@ span.psw {
     height: 100%;
 }
 
+.container {
+    padding: 16px;
+    height: 100%
+}
 
 #customers {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse;
-    border-collapse;
-    width: 80%;
+    border-collapse: collapse;
+    //width: 80%;
+    // height: 400px;
     border: 1px solid black;
-    height: 100%;
+    //height: 100%;
     padding-top: 0px;
     align-items: center;
+    height: 552px;
+    width: 802px;
+    vertical-align: central;
 }
 
     #customers td, #customers th {
@@ -279,6 +288,7 @@ span.psw {
         background-color: #4CAF50;
         color: black;
         height: 100%
+
     }
 
 #channels {
@@ -323,8 +333,9 @@ span.psw {
 #messages {
     border-bottom-width: 0px;
     padding-bottom: 0px;
-    height: 150px;
-    text-align:left;
+    height: 380px;
+    text-align: left;
+    margin-top: 15px;
 }
 
 
@@ -354,7 +365,8 @@ span.psw {
 #sendMessageButton {
     color: black;
     font-weight: bold;
-    margin-bottom: 2px;
+   
+    margin-bottom: 0px;
 }
 
 #chat-channel-name {

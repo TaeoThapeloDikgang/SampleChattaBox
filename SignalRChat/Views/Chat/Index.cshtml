@@ -5,6 +5,7 @@
 
 @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
 
+<div style="position:absolute;width:100%;left:0px;height:100%;top:20%">
     <center>
         <h1>@ViewBag.Username</h1>
 
@@ -21,22 +22,23 @@
             <tr>
                 <td align="center" id="channel-users">
                     @*<div class="channel-user">
-                        <div class="channel-username">Bob</div>
-                    </div>
-                    <div class="channel-user">
-                        <div class="channel-username">Sue</div>
-                    </div>*@
+                            <div class="channel-username">Bob</div>
+                        </div>
+                        <div class="channel-user">
+                            <div class="channel-username">Sue</div>
+                        </div>*@
                 </td>
 
                 <td align="center">
                     <div class="chat-popup" id="myForm">
                         <div id="chat-form" class="form-container">
+                            <br />
                             <h1 id="chat-channel-name">Select Channel To Join</h1>
                             <div id="messages">
                                 @*<div class="message">
-                                    <div class="message-username">Bob</div>
-                                    <div class="message-text">What's up?</div>
-                                </div>*@
+                                        <div class="message-username">Bob</div>
+                                        <div class="message-text">What's up?</div>
+                                    </div>*@
                             </div>
 
                             <textarea placeholder="Type message..." id="messageText" required></textarea>
@@ -48,19 +50,19 @@
                 </td>
                 <td align="center" id="channels">
                     @*<div class="channel">
-                        <div class="channel-name"><a href="#">Sports</a></div>
-                        <div class="channel-description">Your channel for all things sport!</div>
-                    </div>
-                    <div class="channel">
-                        <div class="channel-name"><a href="#">ABC</a></div>
-                        <div class="channel-description">Your channel for all things sport!</div>
-                    </div>*@
+                            <div class="channel-name"><a href="#">Sports</a></div>
+                            <div class="channel-description">Your channel for all things sport!</div>
+                        </div>
+                        <div class="channel">
+                            <div class="channel-name"><a href="#">ABC</a></div>
+                            <div class="channel-description">Your channel for all things sport!</div>
+                        </div>*@
                 </td>
             </tr>
 
         </table>
     </center>
-
+</div>
         @section Scripts {
             <script>
     const myUsername = "@ViewBag.Username";
