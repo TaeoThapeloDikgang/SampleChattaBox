@@ -36,9 +36,26 @@ connection.on("UserDisconnected", function (connectionId) {
 connection.on("receivedMessage", function (username, message) {
     console.log("Received message! " + message);
     const encodedMsg = username + ": " + message;
+    const nameDiv = document.createElement("div");
     const messageDiv = document.createElement("div");
-    messageDiv.textContent = encodedMsg;
-    document.getElementById("messages").appendChild(messageDiv);
+    const wDiv = document.createElement("div");
+    wDiv.appendChild(nameDiv);
+    wDiv.appendChild(messageDiv);
+
+    nameDiv.textContent = username.toString();
+    messageDiv.innerHTML = message.toString();
+
+    nameDiv.setAttribute("style", "font-weight:bold");
+    messageDiv.setAttribute("style", "maxlength:256; width: 40px");
+
+    wDiv.setAttribute("style", "background-color: papayawhip; width: 40%; border-radius:7px; padding: 8px; margin-bottom: 4px")
+
+
+    document.getElementById("messages").appendChild(wDiv);
+
+    //messageDiv.setAttribute("style", "color:red");
+    //messageDiv.textContent = encodedMsg;
+    /*document.getElementById("messages").appendChild(messageDiv);*/
 });
 
 
@@ -94,7 +111,11 @@ connection.start()
                     const channelNameLink = document.createElement("a");
                     channelNameLink.attributes["href"] = "#";
                     let channelName = channels[i].name;
+
+                    channelDiv.setAttribute("style", "background-color: lightpink; width: 100%; border-radius:1px; padding: 8px; margin-bottom: 4px");
+
                     let channelDescription = channels[i].description;
+                    //hannelDescription.setAttribute("style", "background-color:black");
               
                     channelNameLink.innerText = channelName;
                     channelNameLink.addEventListener('click', function (event) {
@@ -106,16 +127,19 @@ connection.start()
                                 // }
                             
                                 var channelUserElement = document.getElementById("channel-users");
-
+                                //channelUserElement.setAttribute("style", "background-color:purple; width=10px");
                                 var joinChannelElementHeader = document.getElementById("chat-channel-name");
                                 joinChannelElementHeader.innerText = channelName;
+                                //joinChannelElementHeader.setAttribute("style", "background-color:purple; width=10px");
 
                                 connection.invoke("GetUsersInAChannel", channelName)
                                     .then(function (users) {
                                         for (var i = 0; i < users.length; i++) {
                                             const userChannelDiv = document.createElement("div");
+       
                                             userChannelDiv.attributes["class"] = "channel-user";
                                             const channelUsernameDiv = document.createElement("div");
+                                            channelUsernameDiv.setAttribute("style", "background-color: lightpink; width: 100%; border-radius:1px; padding: 8px; margin-bottom: 4px");
                                             channelUsernameDiv.attributes["class"] = "channel-username";
                                             channelUsernameDiv.innerText = users[i].username;
 
