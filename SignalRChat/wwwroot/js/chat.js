@@ -35,7 +35,7 @@ connection.on("UserDisconnected", function (connectionId) {
 
 connection.on("receivedMessage", function (username, message) {
     console.log("Received message! " + message);
-    const encodedMsg = username + " says " + message;
+    const encodedMsg = username + ": " + message;
     const messageDiv = document.createElement("div");
     messageDiv.textContent = encodedMsg;
     document.getElementById("messages").appendChild(messageDiv);

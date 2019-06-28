@@ -1,15 +1,22 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    padding-top: 70px;
-    padding-bottom: 20px;
-    background-color:darkseagreen
+    padding-top: 60px;
+    //padding-bottom: 20px;
+    background-color: darkseagreen
 }
 
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
     align-content: center;
-    height: 100%;
+}
+
+html {
+    //position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 /* Full-width input fields */
@@ -103,17 +110,16 @@ span.psw {
     font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-    color: red;
-    cursor: pointer;
-}
+    .close:hover,
+    .close:focus {
+        color: red;
+        cursor: pointer;
+    }
 
 /* our stuff*/
 
 .login-page {
     width: 360px;
-    
     margin: auto;
 }
 
@@ -173,9 +179,11 @@ span.psw {
 }
 
 /* Add styles to the form container */
-.form-container {
-    max-width: 300px;
-    padding: 10px;
+#chat-form {
+    //max-width: 100%;
+    width: 100%;
+    height: 100%;
+    //padding: 0px;
     background-color: white;
 }
 
@@ -231,39 +239,56 @@ span.psw {
     opacity: 1;
 }
 
+#chatScreen {
+}
+
+#myForm {
+    width: 100%;
+    height: 100%;
+}
+
+
 #customers {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+    border-collapse;
+    border-collapse;
+    width: 80%;
     border: 1px solid black;
-    height: 70%;
+    height: 100%;
+    padding-top: 0px;
+    align-items: center;
 }
 
-#customers td, #customers th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
+    #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 0px;
+    }
 
-#customers tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
+    #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    /*
 #customers tr:hover {
     background-color: #ddd;
 }
-
-#customers th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    background-color: #4CAF50;
-    color: black;
-}
+    */
+    #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #4CAF50;
+        color: black;
+        height: 100%
+    }
 
 #channels {
     vertical-align: top;
     text-align: left;
     width: 200px;
+}
+
+#incorrectCredentials {
+    color: red;
 }
 
 .channel {
@@ -276,32 +301,43 @@ span.psw {
 .channel-name {
     font-size: larger;
     font-weight: bolder;
+    padding: 0px;
+    margin: 0px;
 }
 
 .channel-description {
-
 }
 
 #chat-form {
-    max-width: unset;
-    max-height: 50%;
+    //max-width: unset;
+    //max-height: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+#middleform {
+    width: 50%;
+    height: 100%;
 }
 
 #messages {
-    height: 500px;
+    border-bottom-width: 0px;
+    padding-bottom: 0px;
+    height: 150px;
+    text-align:left;
 }
 
-.message {
 
+#messageText {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 45px;
 }
 
-.message-username {
 
-}
-
-.message-text {
-
-}
 
 #channel-users {
     vertical-align: top;
@@ -315,7 +351,15 @@ span.psw {
     margin-bottom: 4px;
 }
 
-#sendMessageButton{
-    color:black;
+#sendMessageButton {
+    color: black;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+#chat-channel-name {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 15px;
     font-weight: bold;
 }
