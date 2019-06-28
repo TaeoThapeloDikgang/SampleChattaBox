@@ -41,7 +41,47 @@ connection.on("receivedMessage", function (username, message) {
     document.getElementById("messages").appendChild(messageDiv);
 });
 
+function addUserToUserList(username) {
 
+    var channelUserElement = document.getElementById("channel-users");
+
+    const userChannelDiv = document.createElement("div");
+    userChannelDiv.attributes["class"] = "channel-user";
+    const channelUsernameDiv = document.createElement("div");
+    channelUsernameDiv.attributes["class"] = "channel-username";
+    channelUsernameDiv.innerText = username;
+
+    channelUserElement.appendChild(userChannelDiv.appendChild(channelUsernameDiv));
+}
+
+function fetchChannelUsers(channelName) {
+    connection.invoke("JoinChannel", channelName, myUsername)
+        .then(function () {
+            $("#messages").empty();
+            $("#channel-users").empty();
+
+            var channelUserElement = document.getElementById("channel-users");
+            var joinChannelElementHeader = document.getElementById("chat-channel-name");
+            joinChannelElementHeader.innerText = channelName;
+            //channelUserElement.setAttribute("style", "background-color: lightgray; border - radius: 4px; padding: 8px; margin - bottom: 4px;");
+            connection.invoke("GetUsersInAChannel", channelName)
+                .then(function (users) {
+
+                    for (var i = 0; i < users.length; i++) {
+                        var username = users[i].username;
+                        addUserToUserList(username);
+                    }
+                });
+        }).catch(err => console.error(err.toString()));
+}
+
+connection.on("joinedChannel", function (username) {
+    addUserToUserList(username);
+});
+
+connection.on("leftChannel", function (username, channelName) {
+    fetchChannelUsers(channelName);
+});
 //document.getElementById("sendMessageButton").addEventListener("click", event => {
 //    connection.invoke("SendMessageToChannel", user, message).catch(err => console.error(err.toString()));
 //    event.preventDefault();
@@ -84,11 +124,11 @@ connection.start()
         connection.invoke("GetChannels")
             .then(function (channels) {
                 var channelsElement = document.getElementById("channels");
-
+                //channelsElement.setAttribute("style", "background-color: lightgray;");
                 for (var i = 0; i < channels.length; i++) {
                     const channelDiv = document.createElement("div");
                     channelDiv.attributes["class"] = "channel";
-
+                    //channelDiv.setAttribute("style", "background-color: lightgray; border - radius: 4px; padding: 8px; margin - bottom: 4px;");
                     const channelNameDiv = document.createElement("div");
                     channelNameDiv.attributes["class"] = "channel-name";
                     const channelNameLink = document.createElement("a");
@@ -98,31 +138,7 @@ connection.start()
               
                     channelNameLink.innerText = channelName;
                     channelNameLink.addEventListener('click', function (event) {
-                        connection.invoke("JoinChannel", channelName, myUsername)
-                            .then(function () {
-                                //$(document).ready(function () {
-                                $("#messages").empty();
-                                $("#channel-users").empty();
-                                // }
-                            
-                                var channelUserElement = document.getElementById("channel-users");
-
-                                var joinChannelElementHeader = document.getElementById("chat-channel-name");
-                                joinChannelElementHeader.innerText = channelName;
-
-                                connection.invoke("GetUsersInAChannel", channelName)
-                                    .then(function (users) {
-                                        for (var i = 0; i < users.length; i++) {
-                                            const userChannelDiv = document.createElement("div");
-                                            userChannelDiv.attributes["class"] = "channel-user";
-                                            const channelUsernameDiv = document.createElement("div");
-                                            channelUsernameDiv.attributes["class"] = "channel-username";
-                                            channelUsernameDiv.innerText = users[i].username;
-
-                                            channelUserElement.appendChild(userChannelDiv.appendChild(channelUsernameDiv));
-                                        }
-                                    });
-                            })//.catch(err => console.error(err.toString()));
+                        fetchChannelUsers(channelName);
                     });
                     
                     channelNameDiv.appendChild(channelNameLink);
