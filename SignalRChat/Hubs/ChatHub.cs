@@ -12,7 +12,7 @@ namespace SignalRChat.Hubs
 
         Task ReceivedMessage(string username, string message);
         Task JoinedChannel(string username);
-        Task LeftChannel(string username);
+        Task LeftChannel(string username, string channelName);
     }
 
     public class ChannelUser
@@ -82,6 +82,7 @@ namespace SignalRChat.Hubs
 
                 foreach(ChannelUser user in toRemove)
                 {
+                    await Clients.Groups(user.ChannelName).LeftChannel(user.Username, user.ChannelName);
                     userList.Remove(user);
                 }
             }
@@ -124,10 +125,12 @@ namespace SignalRChat.Hubs
             }
         }
 
-        //public async Task UpdateUserList(string channelName)
-        //{
-        //    await
-        //}
+        public Task UpdateUserList(string channelName)
+        {
+
+
+            return null;
+        }
 
         private ChannelUser GetUserFromConnection(string connectionId)
         {
