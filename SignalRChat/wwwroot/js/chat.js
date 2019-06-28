@@ -95,33 +95,36 @@ connection.start()
                     channelNameLink.attributes["href"] = "#";
                     let channelName = channels[i].name;
                     let channelDescription = channels[i].description;
-                    let channelId = channels[i].id; 
+              
                     channelNameLink.innerText = channelName;
                     channelNameLink.addEventListener('click', function (event) {
                         connection.invoke("JoinChannel", channelName, myUsername)
-                            .catch(err => console.error(err.toString()));
-                        event.preventDefault();
-                        var joinChannelElementHeader = document.getElementById("chat-channel-name");
-                        joinChannelElementHeader.innerText = channelName;
+                            .then(function () {
+                                //$(document).ready(function () {
+                                $("#messages").empty();
+                                $("#channel-users").empty();
+                                // }
+                            
+                                var channelUserElement = document.getElementById("channel-users");
 
-                        var channelUsersElements = document.getElementById("channel-users");
+                                var joinChannelElementHeader = document.getElementById("chat-channel-name");
+                                joinChannelElementHeader.innerText = channelName;
 
-                        connection.invoke("GetUsers", channelId)
-                            .then(function (users) {
+                                connection.invoke("GetUsersInAChannel", channelName)
+                                    .then(function (users) {
+                                        for (var i = 0; i < users.length; i++) {
+                                            const userChannelDiv = document.createElement("div");
+                                            userChannelDiv.attributes["class"] = "channel-user";
+                                            const channelUsernameDiv = document.createElement("div");
+                                            channelUsernameDiv.attributes["class"] = "channel-username";
+                                            channelUsernameDiv.innerText = users[i].username;
 
-                                for (var i = 0; i < users.length; i++) {
-                                    const userChannelDiv = document.createElements("div");
-                                    userChannelDiv.attributes["class"] = "channel-user";
-                                    const channelUsernameDiv = document.createElement("div");
-                                    channelUserDiv.attributes["class"] = "channel-username";
-                                    channelUserDiv.innerText = users[i].name;
-
-                                    userChannelDiv.appendChild(channelUserDiv)
-                                    channelUserElements.appendChild(userChannelDiv)
-                                }
-                            });
-
+                                            channelUserElement.appendChild(userChannelDiv.appendChild(channelUsernameDiv));
+                                        }
+                                    });
+                            })//.catch(err => console.error(err.toString()));
                     });
+                    
                     channelNameDiv.appendChild(channelNameLink);
                     channelDiv.appendChild(channelNameDiv);
 
@@ -136,6 +139,10 @@ connection.start()
             .catch(err => console.error(err.toString()));
     })
     .catch(err => console.error(err.toString()));
-/*
 
-*/
+
+function removeElement(elementId) {
+    // Removes an element from the document
+    var element = document.getElementById(elementId);
+    element.parentNode.removeChild(element);
+}

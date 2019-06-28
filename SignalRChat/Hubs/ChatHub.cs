@@ -50,6 +50,11 @@ namespace SignalRChat.Hubs
                 list = new List<ChannelUser>();
                 _channelUserMap.Add(channelName, list);
             }
+            else
+            {
+                _channelUserMap.TryGetValue(channelName, out List<ChannelUser> userList);
+                //_channelUserMap.userList.Add(channelUser);
+            }
 
             list.Add(channelUser);
 
@@ -95,10 +100,15 @@ namespace SignalRChat.Hubs
             return Task.FromResult(channels);
         }
 
-        //public async Task GetUsersInAChannel(Channel channel)
-        //{
-            
-        //}
+        public Task<List<ChannelUser>> GetUsersInAChannel(string channelName)
+        {
+            if(_channelUserMap.TryGetValue(channelName, out List<ChannelUser> userList))
+            {
+                return Task.FromResult(userList);
+            }
+            return Task.FromResult(new List<ChannelUser>());
+
+        }
 
         //public async Task RemovedUserFromChannel(string username)
         //{
@@ -113,6 +123,11 @@ namespace SignalRChat.Hubs
                 await Clients.Group(channelUser.ChannelName).ReceivedMessage(channelUser.Username, message);
             }
         }
+
+        //public async Task UpdateUserList(string channelName)
+        //{
+        //    await
+        //}
 
         private ChannelUser GetUserFromConnection(string connectionId)
         {
