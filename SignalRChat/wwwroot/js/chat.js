@@ -35,20 +35,22 @@ connection.on("UserDisconnected", function (connectionId) {
 
 connection.on("receivedMessage", function (username, message) {
     console.log("Received message! " + message);
+    const lengthm = message.length;
     const encodedMsg = username + ": " + message;
     const nameDiv = document.createElement("div");
     const messageDiv = document.createElement("div");
     const wDiv = document.createElement("div");
+
     wDiv.appendChild(nameDiv);
     wDiv.appendChild(messageDiv);
 
     nameDiv.textContent = username.toString();
     messageDiv.innerHTML = message.toString();
 
-    nameDiv.setAttribute("style", "font-weight:bold");
-    messageDiv.setAttribute("style", "maxlength:256; width: 40px");
+    nameDiv.setAttribute("class", "message-user");
+    messageDiv.setAttribute("class", "message-text");
 
-    wDiv.setAttribute("style", "background-color: papayawhip; width: 40%; border-radius:7px; padding: 8px; margin-bottom: 4px")
+    wDiv.setAttribute("class", "message")
 
 
     document.getElementById("messages").appendChild(wDiv);
@@ -104,15 +106,15 @@ connection.start()
 
                 for (var i = 0; i < channels.length; i++) {
                     const channelDiv = document.createElement("div");
-                    channelDiv.attributes["class"] = "channel";
+                    channelDiv.setAttribute("class", "channel");
 
                     const channelNameDiv = document.createElement("div");
-                    channelNameDiv.attributes["class"] = "channel-name";
                     const channelNameLink = document.createElement("a");
-                    channelNameLink.attributes["href"] = "#";
+                    channelNameLink.setAttribute("href", "#");
+                    channelNameLink.setAttribute("class", "channel-name");
                     let channelName = channels[i].name;
 
-                    channelDiv.setAttribute("style", "background-color: lightpink; width: 100%; border-radius:1px; padding: 8px; margin-bottom: 4px");
+                    channelDiv.setAttribute("class", "channel"); //"background-color: lightpink; width: 100%; border-radius:1px; padding: 8px; margin-bottom: 4px");
 
                     let channelDescription = channels[i].description;
                     //hannelDescription.setAttribute("style", "background-color:black");
@@ -139,7 +141,7 @@ connection.start()
        
                                             userChannelDiv.attributes["class"] = "channel-user";
                                             const channelUsernameDiv = document.createElement("div");
-                                            channelUsernameDiv.setAttribute("style", "background-color: lightpink; width: 100%; border-radius:1px; padding: 8px; margin-bottom: 4px");
+                                            channelUsernameDiv.setAttribute("style", "background-color: lightgray; width: 100%; border-radius:1px; padding: 8px; margin-bottom: 4px");
                                             channelUsernameDiv.attributes["class"] = "channel-username";
                                             channelUsernameDiv.innerText = users[i].username;
 
