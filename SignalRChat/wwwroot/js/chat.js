@@ -59,6 +59,48 @@ connection.on("receivedMessage", function (username, message) {
 });
 
 
+function addUserToUserList(username) {
+
+    var channelUserElement = document.getElementById("channel-users");
+
+    const userChannelDiv = document.createElement("div");
+    userChannelDiv.attributes["class"] = "channel-user";
+    const channelUsernameDiv = document.createElement("div");
+    channelUsernameDiv.attributes["class"] = "channel-username";
+    channelUsernameDiv.innerText = username;
+
+    channelUserElement.appendChild(userChannelDiv.appendChild(channelUsernameDiv));
+}
+
+function fetchChannelUsers(channelName) {
+    connection.invoke("JoinChannel", channelName, myUsername)
+        .then(function () {
+            $("#messages").empty();
+            $("#channel-users").empty();
+
+            var channelUserElement = document.getElementById("channel-users");
+            var joinChannelElementHeader = document.getElementById("chat-channel-name");
+            joinChannelElementHeader.innerText = channelName;
+            //channelUserElement.setAttribute("style", "background-color: lightgray; border - radius: 4px; padding: 8px; margin - bottom: 4px;");
+            connection.invoke("GetUsersInAChannel", channelName)
+                .then(function (users) {
+
+                    for (var i = 0; i < users.length; i++) {
+                        var username = users[i].username;
+                        addUserToUserList(username);
+                    }
+                });
+        }).catch(err => console.error(err.toString()));
+}
+
+connection.on("joinedChannel", function (username) {
+    addUserToUserList(username);
+});
+
+connection.on("leftChannel", function (username, channelName) {
+    fetchChannelUsers(channelName);
+});
+
 //document.getElementById("sendMessageButton").addEventListener("click", event => {
 //    connection.invoke("SendMessageToChannel", user, message).catch(err => console.error(err.toString()));
 //    event.preventDefault();
